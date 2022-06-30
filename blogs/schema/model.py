@@ -6,7 +6,7 @@ class Blogs(BaseModel):
     title: str
     body: str
 
-class Show_user(BaseModel):
+class ShowUser(BaseModel):
     name: str
     email: str
     blog: List
@@ -19,7 +19,7 @@ class Users(BaseModel):
     email: str
     password: str
     
-class user_resp(BaseModel):
+class UserResp(BaseModel):
     id: int
     name: str
     email: str
@@ -27,11 +27,16 @@ class user_resp(BaseModel):
         orm_mode = True
     
     
-class Show_blogs(BaseModel):
+class ShowBlogs(BaseModel):
     id: int
     title:str
     body:str
-    creator: user_resp
+    creator: UserResp
     
     class Config():
         orm_mode = True
+        
+
+class Login(BaseModel):
+    id: int
+    password: str
