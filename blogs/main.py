@@ -5,7 +5,10 @@ from .schema.model import (
     UserResp, 
     ShowBlogs, 
     ShowUser,
-    Login
+    Login,
+    UserProfile,
+    ShowProfile,
+    ProfileResponse
     )
 from .schema import schema
 from sqlalchemy.orm import Session
@@ -50,4 +53,19 @@ def create(request: Login, db: Session = Depends(get_db)):
     print(new_user.id)
     check_password = verify_passwor(request.password, new_user.password)
     print(check_password)
+    return new_user
+
+
+@app.post('/profile', tags=['profile'], response_model=ProfileResponse)
+def create(request: UserProfile, db: Session = Depends(get_db)):
+    print(request)
+    new_user = schema.Profile(id=request.id, phone=request.phone, email=request.email, user_id=request.user_id)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+@app.post('/show_profile/user_id:{id}', tags=['profile'], response_model=ShowProfile)
+def create(id: int, db: Session = Depends(get_db)):
+    new_user = db.query(schema.Profile).filter(schema.Profile.id == id).first()
     return new_user

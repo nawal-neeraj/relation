@@ -40,3 +40,35 @@ class ShowBlogs(BaseModel):
 class Login(BaseModel):
     id: int
     password: str
+    
+    
+class UserProfile(BaseModel):
+    id: Optional[int]= None
+    phone: str
+    email: str
+    user_id: int
+    
+class ShowProfile(BaseModel):
+    id: Optional[int]= None
+    phone: str
+    email: str
+    user_id: int
+    
+class ProfileResponse(BaseModel):
+    phone: str
+    email: str
+    user_id: int
+    class Config():
+        orm_mode = True
+    
+class ProfileRes(BaseModel):
+    email: str
+    class Config():
+        orm_mode = True
+        
+class ShowProfile(BaseModel):
+    id: int
+    phone: str
+    details: ProfileRes
+    class Config():
+        orm_mode = True

@@ -21,3 +21,14 @@ class User(Base):
     password = Column(String(2000), index=True)
 
     blog = relationship("Blog", back_populates="creator")
+    profile = relationship("Profile", back_populates="details")
+
+
+class Profile(Base):
+    __tablename__ = 'profile'
+
+    id = Column(Integer, primary_key=True, index=True)
+    phone = Column(String(255), index=True)
+    email = Column(String(255), index=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    details= relationship("User", back_populates="profile")
