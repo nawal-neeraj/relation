@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 class Blogs(BaseModel):
-    id: Optional[int]= None
+    blog_id: Optional[int]= None
     title: str
     body: str
 
@@ -14,13 +14,13 @@ class ShowUser(BaseModel):
         orm_mode = True
 
 class Users(BaseModel):
-    id: Optional[int]= None
+    user_id: Optional[int]= None
     name: str
     email: str
     password: str
     
 class UserResp(BaseModel):
-    id: int
+    user_id: int
     name: str
     email: str
     class Config():
@@ -28,7 +28,7 @@ class UserResp(BaseModel):
     
     
 class ShowBlogs(BaseModel):
-    id: int
+    blog_id: int
     title:str
     body:str
     creator: UserResp
@@ -43,16 +43,11 @@ class Login(BaseModel):
     
     
 class UserProfile(BaseModel):
-    id: Optional[int]= None
+    profile_id: Optional[int]= None
     phone: str
     email: str
     user_id: int
     
-class ShowProfile(BaseModel):
-    id: Optional[int]= None
-    phone: str
-    email: str
-    user_id: int
     
 class ProfileResponse(BaseModel):
     phone: str
@@ -67,7 +62,7 @@ class ProfileRes(BaseModel):
         orm_mode = True
         
 class ShowProfile(BaseModel):
-    id: int
+    profile_id: int
     phone: str
     details: ProfileRes
     class Config():
