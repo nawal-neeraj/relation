@@ -10,20 +10,17 @@ from ..schema.model import (
     ShowProfile
     )
 from ..schema import schema
+from ..datalayer.register import register_user_profile
 
 router = APIRouter(
     prefix="/profile",
     tags=['profiles']
 )
 
-get_db = get_db
 
 @router.post('/', response_model=ProfileResponse)
 def add_profile(request: UserProfile, db: Session = Depends(get_db)):
-    new_user = schema.Profile(id=request.id, phone=request.phone, email=request.email, user_id=request.user_id)
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
+    new_user = register_user_profile(request, db)
     return new_user
 
 @router.get('/show_profile/user_id:{id}', response_model=ShowProfile)

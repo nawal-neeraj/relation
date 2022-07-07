@@ -32,3 +32,4 @@ class Profile(Base):
     email = Column(String(255), index=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     details= relationship("User", back_populates="profile")
+    
